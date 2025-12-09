@@ -240,7 +240,7 @@ body {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    background: #f0f0f0;
+    background: #f8fafc;
 }
 
 .gallery-content {
@@ -384,14 +384,14 @@ body {
 }
 
 .modal-prompt pre {
-    background: #f8f9fa;
+    background: #fafbfc;
     padding: 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow-x: auto;
     font-size: 0.9rem;
     line-height: 1.5;
     margin-bottom: 1rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid rgba(139, 92, 246, 0.1);
 }
 
 .copy-btn {
