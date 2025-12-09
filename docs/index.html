@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科研AI绘图图库 - Scientific AI Image Gallery</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-microscope"></i>
+                    <h1>科研AI绘图图库</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#mechanism" class="nav-link">机制图解</a>
+                    <a href="#inflammation" class="nav-link">炎症与脓毒症</a>
+                    <a href="#liver" class="nav-link">肝脏研究</a>
+                    <a href="#heart" class="nav-link">心脏研究</a>
+                    <a href="#others" class="nav-link">其他研究</a>
+                    <a href="https://link3.cc/maynorai" target="_blank" class="nav-link external-link">
+                        <i class="fas fa-external-link-alt"></i> 永久导航
+                    </a>
+                    <a href="https://pro.nanobanana-free.top" target="_blank" class="nav-link external-link highlight">
+                        <i class="fas fa-rocket"></i> 科研绘图平台
+                    </a>
+                </nav>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索图片...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>高质量科研图像生成示例</h2>
+                <p>探索基于AI生成的科研图像，包含详细的提示词和生成参数</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="imageCount">77</span>
+                        <span class="stat-label">精选图片</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">研究领域</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="promptCount">77+</span>
+                        <span class="stat-label">专业提示词</span>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="https://pro.nanobanana-free.top" target="_blank" class="cta-button primary">
+                        <i class="fas fa-rocket"></i> 体验科研绘图平台
+                    </a>
+                    <a href="https://link3.cc/maynorai" target="_blank" class="cta-button secondary">
+                        <i class="fas fa-bookmark"></i> 保存永久导航
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i> 全部
+                </button>
+                <button class="filter-btn" data-filter="mechanism">
+                    <i class="fas fa-cogs"></i> 机制图解
+                </button>
+                <button class="filter-btn" data-filter="inflammation">
+                    <i class="fas fa-fire"></i> 炎症与脓毒症
+                </button>
+                <button class="filter-btn" data-filter="liver">
+                    <i class="fas fa-liver"></i> 肝脏研究
+                </button>
+                <button class="filter-btn" data-filter="heart">
+                    <i class="fas fa-heart"></i> 心脏研究
+                </button>
+                <button class="filter-btn" data-filter="others">
+                    <i class="fas fa-flask"></i> 其他研究
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <main class="main">
+        <div class="container">
+            <div class="gallery" id="gallery">
+                <!-- 动态加载图片内容 -->
+            </div>
+            <div class="loading" id="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>加载中...</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h3 id="modalTitle"></h3>
+                    <div class="modal-category">
+                        <span class="category-tag" id="modalCategory"></span>
+                    </div>
+                    <div class="modal-prompt">
+                        <h4><i class="fas fa-code"></i> 提示词：</h4>
+                        <pre id="modalPrompt"></pre>
+                        <button class="copy-btn" onclick="copyPrompt()">
+                            <i class="fas fa-copy"></i> 复制提示词
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 科研AI绘图图库. 所有图片来源于科研AI绘图平台.</p>
+                <div class="footer-links">
+                    <a href="https://pro.nanobanana-free.top" target="_blank" class="footer-link-highlight">
+                        <i class="fas fa-rocket"></i> 专业科研绘图平台
+                    </a>
+                    <a href="https://link3.cc/maynorai" target="_blank">
+                        <i class="fas fa-bookmark"></i> 永久导航
+                    </a>
+                    <a href="https://github.com/xianyu110/awesome-keyan-nanobananapro" target="_blank">
+                        <i class="fab fa-github"></i> 项目仓库
+                    </a>
+                    <a href="#" onclick="showAbout()">
+                        <i class="fas fa-info-circle"></i> 关于
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/gallery_data.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
