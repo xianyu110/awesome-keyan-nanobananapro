@@ -1,5 +1,5 @@
 // 从外部文件导入图片数据
-let galleryData = [];
+// galleryData 将从 gallery_data.js 文件加载
 
 // 全局变量
 let currentFilter = 'all';
@@ -16,32 +16,12 @@ const modalCategory = document.getElementById('modalCategory');
 const modalPrompt = document.getElementById('modalPrompt');
 const closeModal = document.querySelector('.close');
 
-// 异步加载图片数据
-async function loadGalleryData() {
-    try {
-        // 尝试从外部JSON文件加载数据
-        const response = await fetch('assets/js/gallery_data.js');
-        if (response.ok) {
-            const scriptText = await response.text();
-            // 执行脚本以获取数据
-            eval(scriptText);
-            galleryData = window.galleryData || [];
-        } else {
-            throw new Error('无法加载外部数据文件');
-        }
-    } catch (error) {
-        console.log('使用内置示例数据...');
-        // 如果无法加载外部数据，使用示例数据
-        galleryData = [
-            {
-                id: 1,
-                title: "外泌体生物发生和分子组成",
-                category: "mechanism",
-                categoryName: "机制图解",
-                image: "https://tycloud-eos-beijing-1.dftianyi.com/upload/20251126/3e17d909f1aada739245f12c11dc3125.png",
-                prompt: "创建一个全面的细胞生物学插图，展示外泌体的生物发生和分子组成..."
-            }
-        ];
+// 初始化图片数据
+function loadGalleryData() {
+    // galleryData 已经在 gallery_data.js 中定义
+    if (typeof galleryData === 'undefined' || galleryData.length === 0) {
+        console.error('图片数据未加载');
+        galleryData = [];
     }
 
     // 初始化过滤数据
