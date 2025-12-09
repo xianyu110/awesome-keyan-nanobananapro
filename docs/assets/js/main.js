@@ -54,6 +54,13 @@ function updateStats() {
 document.addEventListener('DOMContentLoaded', () => {
     loadGalleryData();
     setupEventListeners();
+    setupThemeToggle();
+    setupLangToggle();
+
+    // 初始化国际化
+    if (typeof window.i18n !== 'undefined') {
+        window.i18n.init();
+    }
 });
 
 // 设置事件监听器
@@ -205,9 +212,12 @@ function closeModalHandler() {
 // 复制提示词
 function copyPrompt() {
     const promptText = modalPrompt.textContent;
+    const successMessage = typeof window.i18n !== 'undefined'
+        ? window.i18n.t('modal.copied')
+        : '提示词已复制到剪贴板！';
 
     navigator.clipboard.writeText(promptText).then(() => {
-        showToast('提示词已复制到剪贴板！');
+        showToast(successMessage);
     }).catch(() => {
         // 降级方案
         const textArea = document.createElement('textarea');
@@ -216,7 +226,7 @@ function copyPrompt() {
         textArea.select();
         document.execCommand('copy');
         document.body.removeChild(textArea);
-        showToast('提示词已复制到剪贴板！');
+        showToast(successMessage);
     });
 }
 
@@ -237,11 +247,100 @@ function showToast(message) {
     }, 3000);
 }
 
+// 主题切换功能
+function setupThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+
+    // 从localStorage读取主题设置
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+}
+
+function updateThemeIcon(theme) {
+    const themeIcon = document.getElementById('themeIcon');
+    if (themeIcon) {
+        themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+}
+
+// 语言切换功能
+function setupLangToggle() {
+    const langToggle = document.getElementById('langToggle');
+    const langText = document.getElementById('langText');
+
+    if (langToggle && langText) {
+        langToggle.addEventListener('click', () => {
+            const currentLang = document.documentElement.getAttribute('data-lang') || 'zh';
+            const newLang = currentLang === 'zh' ? 'en' : 'zh';
+
+            if (typeof window.i18n !== 'undefined') {
+                window.i18n.setLang(newLang);
+                langText.textContent = newLang === 'zh' ? 'EN' : '中';
+
+                // 更新gallery的分类显示
+                updateGalleryCategories();
+
+                // 显示提示
+                showToast(newLang === 'zh' ? '已切换到中文' : 'Switched to English');
+            }
+        });
+    }
+}
+
+// 更新画廊中的分类显示
+function updateGalleryCategories() {
+    document.querySelectorAll('.gallery-category').forEach(element => {
+        const category = element.textContent.trim();
+        let key = '';
+
+        switch(category) {
+            case '机制图解':
+            case 'Mechanism':
+                key = 'categories.mechanism';
+                break;
+            case '炎症与脓毒症':
+            case 'Inflammation':
+                key = 'categories.inflammation';
+                break;
+            case '肝脏研究':
+            case 'Liver Research':
+                key = 'categories.liver';
+                break;
+            case '心脏研究':
+            case 'Heart Research':
+                key = 'categories.heart';
+                break;
+            case '其他研究':
+            case 'Other Research':
+                key = 'categories.others';
+                break;
+        }
+
+        if (key && typeof window.i18n !== 'undefined') {
+            element.textContent = window.i18n.t(key);
+        }
+    });
+}
+
 // 显示关于信息
 function showAbout() {
-    alert(`科研AI绘图图库
-
-本网站展示了基于AI生成的高质量科研图像示例。
+    const lang = document.documentElement.getAttribute('data-lang') || 'zh';
+    const aboutContent = typeof window.i18n !== 'undefined'
+        ? window.i18n.t('about')
+        : {
+            title: '科研AI绘图图库',
+            content: `本网站展示了基于AI生成的高质量科研图像示例。
 
 功能特点：
 • ${galleryData.length}张精选科研图像
@@ -249,9 +348,11 @@ function showAbout() {
 • 分类浏览和搜索功能
 • 响应式设计
 
-所有图片来源于科研AI绘图平台。
+所有图片来源于科研AI绘图平台。`,
+            footer: '© 2025 科研AI绘图图库'
+        };
 
-© 2025 科研AI绘图图库`);
+    alert(`${aboutContent.title}\n\n${aboutContent.content}\n\n${aboutContent.footer}`);
 }
 
 // 图片懒加载优化
