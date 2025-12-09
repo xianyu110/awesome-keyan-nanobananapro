@@ -1,5 +1,5 @@
 // 图片数据 - 共77张图片
-const galleryData = [
+window.ScientificImageData = [
     {
         "id": 1,
         "title": "Age-related susceptibility to sepsis and endotoxem...",

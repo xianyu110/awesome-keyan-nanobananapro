@@ -1,7 +1,8 @@
 // 从外部文件导入图片数据
-// galleryData 将从 gallery_data.js 文件加载
+// 使用 ScientificImageData 变量名避免冲突
 
 // 全局变量
+let galleryData = [];  // 使用本地变量名
 let currentFilter = 'all';
 let filteredData = [];
 
@@ -18,8 +19,10 @@ const closeModal = document.querySelector('.close');
 
 // 初始化图片数据
 function loadGalleryData() {
-    // galleryData 已经在 gallery_data.js 中定义
-    if (typeof galleryData === 'undefined' || galleryData.length === 0) {
+    // 从 ScientificImageData 加载数据
+    if (typeof window.ScientificImageData !== 'undefined' && window.ScientificImageData.length > 0) {
+        galleryData = window.ScientificImageData;
+    } else {
         console.error('图片数据未加载');
         galleryData = [];
     }
