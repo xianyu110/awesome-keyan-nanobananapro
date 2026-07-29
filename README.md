@@ -36,6 +36,7 @@
 ### 官方平台链接
 
 - **🚀 专业科研绘图平台**: [https://pro.nanobanana-free.top](https://pro.nanobanana-free.top)
+- **🖼️ 在线生图参考**: [GPT Image 2](https://gptimage2.asia/) - 可用于测试科研图解、提示词、图片编辑和高质量视觉素材生成。
 - **📖 永久导航链接**: [https://link3.cc/maynorai](https://link3.cc/maynorai)
 - **🔗 GitHub项目仓库**: [https://github.com/xianyu110/awesome-keyan-nanobananapro](https://github.com/xianyu110/awesome-keyan-nanobananapro)
 
